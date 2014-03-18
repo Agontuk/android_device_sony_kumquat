@@ -29,7 +29,7 @@ BOARD_VOLD_MAX_PARTITIONS := 16
 TARGET_USERIMAGES_USE_EXT4 := true
 
 
-# Specif recovery configuration
+# Specific recovery configuration
 BOARD_HAS_SDCARD_INTERNAL := true
 
 
