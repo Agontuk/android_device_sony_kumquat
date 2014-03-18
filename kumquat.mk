@@ -39,7 +39,7 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 # Configuration scripts
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/config/init.st-ericsson.device.rc:root/init.st-ericsson.device.rc \
-   device/sony/kumquat/prebuilt/logo-480x854.rle:root/logo.rle
+   $(LOCAL_PATH)/prebuilt/logo-480x854.rle:root/logo.rle
 
 #charging animation
 $(call inherit-product, device/sony/kumquat/prebuilt/resources-480x854.mk)
