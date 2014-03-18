@@ -29,6 +29,10 @@ BOARD_VOLD_MAX_PARTITIONS := 16
 TARGET_USERIMAGES_USE_EXT4 := true
 
 
+# Specif recovery configuration
+BOARD_HAS_SDCARD_INTERNAL := true
+
+
 # Specific flag for LED bar notification
 COMMON_GLOBAL_CFLAGS += -DNEW_NOTIFICATION -DSECOND_NOTIFICATION
 
