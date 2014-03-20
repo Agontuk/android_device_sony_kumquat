@@ -1,73 +1,53 @@
-#
-# Copyright (C) 2011 The CyanogenMod Project
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+# Inherit from AOSP
+$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
-# Inherit the proprietary counterpart
-$(call inherit-product-if-exists, vendor/sony/kumquat/kumquat-vendor.mk)
 
-DEVICE_PACKAGE_OVERLAYS += device/sony/kumquat/overlay
-
-# Inherit the montblanc-common definitions
+# Inherit from the common montblanc definitions
 $(call inherit-product, device/sony/montblanc-common/montblanc.mk)
 
-# The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
-# These are the hardware-specific features
+# Inherit from the device specific vendor definitions
+$(call inherit-product-if-exists, vendor/sony/kumquat/kumquat-vendor.mk)
+
+
+# Device specific settings overlays
+DEVICE_PACKAGE_OVERLAYS += device/sony/kumquat/overlay
+
+
+# Device specific configuration scripts
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
+    $(LOCAL_PATH)/config/init.st-ericsson.device.rc:root/init.st-ericsson.device.rc \
+	$(LOCAL_PATH)/config/vold.fstab:system/etc/vold.fstab \
+	$(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml
+    
+    
+# Device specific hardware configuration script    
+	$(LOCAL_PATH)/config/dash.conf:system/etc/dash.conf \
+    $(LOCAL_PATH)/prebuilt/hw_config.sh:system/etc/hw_config.sh \
+	$(LOCAL_PATH)/config/cflashlib.cfg:system/etc/cflashlib.cfg \
+	$(LOCAL_PATH)/config/flashled_param_config.cfg:system/etc/flashled_param_config.cfg
 
-# This device is hdpi.  However the platform doesn't
-# currently contain all of the bitmaps at hdpi density so
-# we do this little trick to fall back to the hdpi version
-# if the hdpi doesn't exist.
-PRODUCT_AAPT_CONFIG := normal mdpi hdpi
-PRODUCT_AAPT_PREF_CONFIG := hdpi
 
-# Configuration scripts
+# Device specific bootlogo and charging animation
 PRODUCT_COPY_FILES += \
-   $(LOCAL_PATH)/config/init.st-ericsson.device.rc:root/init.st-ericsson.device.rc \
-   $(LOCAL_PATH)/prebuilt/logo-480x854.rle:root/logo.rle
-
-#charging animation
+	$(LOCAL_PATH)/prebuilt/logo-480x854.rle:root/logo.rle
 $(call inherit-product, device/sony/kumquat/prebuilt/resources-480x854.mk)
 
-# Configuration scripts
-PRODUCT_COPY_FILES += \
-   $(LOCAL_PATH)/config/dash.conf:system/etc/dash.conf \
-   $(LOCAL_PATH)/prebuilt/hw_config.sh:system/etc/hw_config.sh
 
-# Recovery bootstrap scripts
+# Device specific recovery bootstrap scripts
 PRODUCT_COPY_FILES += \
-  $(LOCAL_PATH)/config/bootrec:root/sbin/bootrec \
+  	$(LOCAL_PATH)/config/bootrec:root/sbin/bootrec \
+	$(LOCAL_PATH)/recovery/bootrec-device:root/sbin/bootrec-device \
+   	$(LOCAL_PATH)/recovery/bootrec-device-fs:root/sbin/bootrec-device-fs \
+   	$(LOCAL_PATH)/recovery.fstab:root/recovery.fstab
 
-# USB function switching
+
+# Device specific USB configuration script  
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/config/init.st-ericsson.usb.rc:root/init.st-ericsson.usb.rc
 
-PRODUCT_COPY_FILES += \
-   $(LOCAL_PATH)/config/vold.fstab:system/etc/vold.fstab \
-   $(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml
 
-# Recovery bootstrap (device-specific part)
-PRODUCT_COPY_FILES += \
-   $(LOCAL_PATH)/recovery/bootrec-device:root/sbin/bootrec-device \
-   $(LOCAL_PATH)/recovery/bootrec-device-fs:root/sbin/bootrec-device-fs \
-   $(LOCAL_PATH)/recovery.fstab:root/recovery.fstab
-
-# Key layouts and touchscreen
+# Device specific keylayouts and touchscreen configurations files
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/config/AB8500_Hs_Button.kl:system/usr/keylayout/AB8500_Hs_Button.kl \
    $(LOCAL_PATH)/config/simple_remote.kl:system/usr/keylayout/simple_remote.kl \
@@ -80,15 +60,11 @@ PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/config/cyttsp-spi.idc:system/usr/idc/cyttsp-spi.idc \
    $(LOCAL_PATH)/config/sensor00_f11_sensor0.idc:system/usr/idc/sensor00_f11_sensor0.idc \
    $(LOCAL_PATH)/config/synaptics_rmi4_i2c.idc:system/usr/idc/synaptics_rmi4_i2c.idc
-
-# Misc configuration files
-PRODUCT_COPY_FILES += \
-   $(LOCAL_PATH)/config/cflashlib.cfg:system/etc/cflashlib.cfg \
-   $(LOCAL_PATH)/config/flashled_param_config.cfg:system/etc/flashled_param_config.cfg
-
-$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
-
-$(call inherit-product-if-exists, vendor/sony/kumquat/kumquat-vendor.mk)
-
+   
+# Device specific proprieties
+# References: 
+# - http://en.wikipedia.org/wiki/Pixel_density#Calculation_of_monitor_PPI
+# - https://source.android.com/devices/low-ram.html
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=240
+    ro.sf.lcd_density=280 \
+    ro.config.low_ram=true
