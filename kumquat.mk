@@ -16,8 +16,7 @@ DEVICE_PACKAGE_OVERLAYS += device/sony/kumquat/overlay
 
 # Device specific configuration scripts
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/config/init.st-ericsson.device.rc:root/init.st-ericsson.device.rc \
-	$(LOCAL_PATH)/config/vold.fstab:system/etc/vold.fstab \
+	$(LOCAL_PATH)/config/init.st-ericsson.device.rc:root/init.st-ericsson.device.rc \
 	$(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml
     
     
