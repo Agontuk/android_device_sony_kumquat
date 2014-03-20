@@ -49,6 +49,10 @@ PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/config/dash.conf:system/etc/dash.conf \
    $(LOCAL_PATH)/prebuilt/hw_config.sh:system/etc/hw_config.sh
 
+# Recovery bootstrap scripts
+PRODUCT_COPY_FILES += \
+  $(LOCAL_PATH)/config/bootrec:root/sbin/bootrec \
+
 # USB function switching
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/config/init.st-ericsson.usb.rc:root/init.st-ericsson.usb.rc
