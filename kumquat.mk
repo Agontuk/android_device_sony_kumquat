@@ -59,16 +59,10 @@ PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/config/sensor00_f11_sensor0.idc:system/usr/idc/sensor00_f11_sensor0.idc \
    $(LOCAL_PATH)/config/synaptics_rmi4_i2c.idc:system/usr/idc/synaptics_rmi4_i2c.idc
    
-# Display specific proprieties
-# References: 
-# - http://developer.android.com/guide/practices/screens_support.html
-# - http://en.wikipedia.org/wiki/Pixel_density#Calculation_of_monitor_PPI
-# - https://source.android.com/devices/low-ram.html
-PRODUCT_AAPT_CONFIG := mdpi hdpi
+# Device specific display resolutions
+# Reference: http://developer.android.com/guide/practices/screens_support.html
+# Note: In PRODUCT_AAPT_PREF_CONFIG set the proper one (e.g. hdpi), in PRODUCT_AAPT_CONFIG set the proper one and the previous one (e.g. mdpi)
 PRODUCT_AAPT_PREF_CONFIG := hdpi
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=280
-   
-# Device specific proprieties
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.config.low_ram=true
+PRODUCT_AAPT_CONFIG := mdpi hdpi
+
+
