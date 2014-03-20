@@ -63,6 +63,7 @@ PRODUCT_COPY_FILES += \
    
 # Device specific proprieties
 # References: 
+# - http://developer.android.com/guide/practices/screens_support.html
 # - http://en.wikipedia.org/wiki/Pixel_density#Calculation_of_monitor_PPI
 # - https://source.android.com/devices/low-ram.html
 PRODUCT_AAPT_CONFIG := mdpi hdpi
