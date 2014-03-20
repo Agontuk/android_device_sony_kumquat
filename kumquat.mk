@@ -34,11 +34,7 @@ $(call inherit-product, device/sony/kumquat/prebuilt/resources-480x854.mk)
 
 # Device specific recovery bootstrap scripts
 PRODUCT_COPY_FILES += \
-  	$(LOCAL_PATH)/config/bootrec:root/sbin/bootrec \
-	$(LOCAL_PATH)/recovery/bootrec-device:root/sbin/bootrec-device \
-   	$(LOCAL_PATH)/recovery/bootrec-device-fs:root/sbin/bootrec-device-fs \
-   	$(LOCAL_PATH)/recovery.fstab:root/recovery.fstab
-
+	$(LOCAL_PATH)/config/bootrec-device:root/sbin/bootrec-device
 
 # Device specific USB configuration script  
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/config/init.st-ericsson.usb.rc:root/init.st-ericsson.usb.rc
