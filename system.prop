@@ -54,6 +54,7 @@ ste.special_fast_dormancy=false
 persist.audio.hp=true
 ro.sound.driver=alsa
 
+
 # Tuning
 # Reference: http://source.android.com/devices/tuning.html
 ro.hwui.texture_cache_size=10
