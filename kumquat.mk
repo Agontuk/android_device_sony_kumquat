@@ -65,6 +65,8 @@ PRODUCT_COPY_FILES += \
 # References: 
 # - http://en.wikipedia.org/wiki/Pixel_density#Calculation_of_monitor_PPI
 # - https://source.android.com/devices/low-ram.html
+PRODUCT_AAPT_CONFIG := mdpi hdpi
+PRODUCT_AAPT_PREF_CONFIG := hdpi
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=280 \
     ro.config.low_ram=true
