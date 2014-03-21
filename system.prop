@@ -13,14 +13,15 @@ ro.opengles.version=131072
 debug.sf.hw=1
 
 
-# EGL miscellanea
+# EGL miscellaneous
 ro.zygote.disable_gl_preload=true
-ro.bq.gpu_to_cpu_unsupported=true
+# the ro.bq.gpu_to_cpu_unsupported is not needed for us
+#ro.bq.gpu_to_cpu_unsupported=true
 debug.hwui.render_dirty_regions=false
 hwui.render_dirty_regions=false
 
 
-# Disable StrictMode
+# Disable Strict Mode
 persist.sys.strictmode.disable=true
 persist.sys.strictmode.visual=false
 
