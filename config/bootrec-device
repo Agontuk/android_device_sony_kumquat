@@ -1,6 +1,7 @@
 #!/sbin/sh
 
-# trigger button-backlight
+
+# Trigger button-backlight
 echo '255' > /sys/class/leds/l-key-blue/brightness
 echo '255' > /sys/class/leds/m-key-blue/brightness
 echo '255' > /sys/class/leds/r-key-blue/brightness
@@ -11,7 +12,8 @@ echo '255' > /sys/class/leds/l-key-red/brightness
 echo '255' > /sys/class/leds/m-key-red/brightness
 echo '255' > /sys/class/leds/r-key-red/brightness
 
-# trigger white, red, orange, yellow, green, blue, purple LED :)
+
+# Trigger white, red, orange, yellow, green, blue, purple LEDs
 echo '255' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/pwr-red/brightness
 echo '255' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/pwr-green/brightness
 echo '255' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/pwr-blue/brightness
@@ -41,10 +43,12 @@ echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/pwr-green/brightnes
 echo '255' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/pwr-blue/brightness
 usleep 300000
 
-# trigger vibration
+
+# Trigger vibration
 echo '200' > /sys/class/timed_output/vibrator/enable
 
-# disable button-backlight
+
+# Disable button-backlight
 echo '0' > /sys/class/leds/l-key-blue/brightness
 echo '0' > /sys/class/leds/m-key-blue/brightness
 echo '0' > /sys/class/leds/r-key-blue/brightness
@@ -55,12 +59,13 @@ echo '0' > /sys/class/leds/l-key-red/brightness
 echo '0' > /sys/class/leds/m-key-red/brightness
 echo '0' > /sys/class/leds/r-key-red/brightness
 
-# disable LEDs
+
+# Disable LEDs
 echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/pwr-red/brightness
 echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/pwr-green/brightness
 echo '0' > /sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/pwr-blue/brightness
 
+
 cat /dev/input/event2 > /dev/keycheck &
 sleep 3
-
 kill -9 $!
