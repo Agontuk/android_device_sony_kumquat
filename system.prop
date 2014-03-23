@@ -6,14 +6,6 @@ ro.build.characteristics=nosdcard
 ro.semc.product.user_storage=emmc_only
 
 
-# NFC
-ro.nfc.on.default=false
-ro.nfc.se.sim.enable=true
-ro.nfc.se.smx.enable=false
-ro.nfc.icon.enable=true
-ro.nfc.vendor.name=nxp
-
-
 # Hardware video codecs configuration
 ste.video.dec.mpeg4.in.size=8192
 ste.video.enc.out.buffercnt=5
