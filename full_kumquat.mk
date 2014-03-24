@@ -21,18 +21,14 @@
 # lines, full and maguro, hence its name.
 #
 #
- 
-# Torch
-PRODUCT_PACKAGES := \
-    Torch
 
-# Inherit from those products. Most specific first.
+# Inherit from AOSP
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Inherit from kumquat device
+# Inherit from device
 $(call inherit-product, device/sony/kumquat/kumquat.mk)
 
-# Set those variables here to overwrite the inherited values.
+# Set correct device informations
 PRODUCT_NAME := full_kumquat
 PRODUCT_DEVICE := kumquat
 PRODUCT_BRAND := Sony

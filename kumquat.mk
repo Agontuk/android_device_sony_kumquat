@@ -55,3 +55,34 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 PRODUCT_AAPT_CONFIG := mdpi hdpi
 
 
+# Android kind of memory
+PRODUCT_PROPERTY_OVERRIDES += ro.build.characteristics=nosdcard
+
+
+# PC Companion kind of memory
+PRODUCT_PROPERTY_OVERRIDES += ro.semc.product.user_storage=emmc_only
+
+
+# Hardware video codecs configurations
+PRODUCT_PROPERTY_OVERRIDES += \
+  ste.video.dec.mpeg4.in.size=8192 \
+  ste.video.enc.out.buffercnt=5 \
+  ste.video.dec.recycle.delay=1 \
+  ste.video.decoder.max.hwmem=0x2600000 \
+  ste.video.decoder.max.res=720p \
+  ste.video.decoder.h264.max.lev=3.2
+
+
+# Device specific proprieties
+# References: 
+# - http://source.android.com/devices/tuning.html (Round to ceil)
+# - http://en.wikipedia.org/wiki/Pixel_density#Calculation_of_monitor_PPI
+# - https://source.android.com/devices/low-ram.html
+PRODUCT_PROPERTY_OVERRIDES += \
+  ro.hwui.texture_cache_size=9 \
+  ro.hwui.layer_cache_size=7 \
+  ro.hwui.path_cache_size=2 \
+  ro.sf.lcd_density=280 \
+  ro.config.low_ram=true
+
+
