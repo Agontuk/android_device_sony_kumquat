@@ -13,6 +13,9 @@ TARGET_SPECIFIC_HEADER_PATH += device/sony/kumquat/include
 # Kernel specific configurations
 TARGET_KERNEL_CONFIG := xperiau_defconfig
 
+# TWRP
+DEVICE_RESOLUTION := 480x854
+BOARD_HAS_NO_REAL_SDCARD := true
 
 # Specific recovery configuration
 BOARD_HAS_SDCARD_INTERNAL := true
