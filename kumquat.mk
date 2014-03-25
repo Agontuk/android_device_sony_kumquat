@@ -32,11 +32,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/prebuilt/logo-480x854.rle:root/logo.rle
 $(call inherit-product, device/sony/kumquat/prebuilt/resources-480x854.mk)
 
-
-# Device specific recovery bootstrap scripts
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/config/bootrec-device:root/sbin/bootrec-device
-
 #TWRP
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/twrp.fstab
