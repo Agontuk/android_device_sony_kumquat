@@ -36,7 +36,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/prebuilt/logo-480x854.rle:root/logo.rle
 $(call inherit-product, device/sony/kumquat/prebuilt/resources-480x854.mk)
 
-#TWRP
+# TWRP
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/config/twrp.fstab:recovery/root/etc/twrp.fstab
 
@@ -53,6 +53,7 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/config/simple_remote.kl:system/usr/keylayout/simple_remote.kl \
 	$(LOCAL_PATH)/config/simple_remote_appkey.kl:system/usr/keylayout/simple_remote_appkey.kl
 
+	
 # Device specific display resolutions
 # Reference: http://developer.android.com/guide/practices/screens_support.html
 # Note: In PRODUCT_AAPT_PREF_CONFIG set the proper one (e.g. hdpi), in PRODUCT_AAPT_CONFIG set the proper one and the previous one (e.g. mdpi)
