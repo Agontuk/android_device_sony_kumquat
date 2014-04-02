@@ -2,21 +2,5 @@
 
 export BOOTREC_EVENT_NODE="/dev/input/event2 c 13 66"
 export BOOTREC_EVENT="/dev/input/event2"
-export BOOTREC_LED_RED="/sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/pwr-red/brightness"
-export BOOTREC_LED_GREEN="/sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/pwr-green/brightness"
-export BOOTREC_LED_BLUE="/sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/pwr-blue/brightness"
 export BOOTREC_FOTA_NODE="/dev/block/mmcblk0p13 b 179 13"
 export BOOTREC_FOTA="/dev/block/mmcblk0p13"
-
-
-# Xperia U additional LED
-export BOOTREC_LED_RED_L="/sys/class/leds/l-key-red/brightness"
-export BOOTREC_LED_RED_M="/sys/class/leds/m-key-red/brightness"
-export BOOTREC_LED_RED_R="/sys/class/leds/r-key-red/brightness"
-export BOOTREC_LED_GREEN_L="/sys/class/leds/l-key-green/brightness"
-export BOOTREC_LED_GREEN_M="/sys/class/leds/m-key-green/brightness"
-export BOOTREC_LED_GREEN_R="/sys/class/leds/r-key-green/brightness"
-export BOOTREC_LED_BLUE_L="/sys/class/leds/l-key-blue/brightness"
-export BOOTREC_LED_BLUE_M="/sys/class/leds/m-key-blue/brightness"
-export BOOTREC_LED_BLUE_R="/sys/class/leds/r-key-blue/brightness"
-
