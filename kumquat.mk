@@ -32,9 +32,11 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/config/flashled_param_config.cfg:system/etc/flashled_param_config.cfg
 
 
-# Device specific bootlogo and charging animation
-PRODUCT_COPY_FILES += $(LOCAL_PATH)/prebuilt/logo-480x854.rle:root/logo.rle
-$(call inherit-product, device/sony/kumquat/prebuilt/resources-480x854.mk)
+# Device specific bootlogo, bootanimation and charging animation
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/prebuilt/logo-480x854.rle:root/logo.rle \
+	$(LOCAL_PATH)/prebuilt/bootanimation.zip:system/media/bootanimation.zip
+$(call inherit-product, $(LOCAL_PATH)/prebuilt/resources-480x854.mk)
 
 # TWRP
 PRODUCT_COPY_FILES += \
