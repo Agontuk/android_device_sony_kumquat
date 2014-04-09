@@ -20,6 +20,7 @@ TARGET_SPECIFIC_HEADER_PATH += device/sony/kumquat/include
 
 # Device specific configuration scripts
 PRODUCT_COPY_FILES += \
+        $(LOCAL_PATH)/config/fstab.st-ericsson:root/fstab.st-ericsson \
 	$(LOCAL_PATH)/config/init.st-ericsson.device.rc:root/init.st-ericsson.device.rc \
 	$(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml
 
