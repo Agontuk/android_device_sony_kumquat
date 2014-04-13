@@ -5,6 +5,7 @@ bin/chargemon
 bin/cn_server
 bin/cops_cmd
 bin/copsdaemon
+bin/cyttsp_fwloader
 bin/lbsd
 bin/lbsstelp
 bin/modem-supervisor
