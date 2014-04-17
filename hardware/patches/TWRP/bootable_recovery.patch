@@ -1,0 +1,155 @@
+diff --git a/bootable/recovery/Android.mk b/bootable/recovery/Android.mk
+index 98c4427..5a9a1a2 100644
+--- a/bootable/recovery/Android.mk
++++ b/bootable/recovery/Android.mk
+@@ -44,6 +44,19 @@ RECOVERY_API_VERSION := 3
+ RECOVERY_FSTAB_VERSION := 2
+ LOCAL_CFLAGS += -DRECOVERY_API_VERSION=$(RECOVERY_API_VERSION)
+ 
++ifeq ($(TARGET_DEVICE),kumquat)
++	LOCAL_CFLAGS += -DXPERIA_U
++endif
++ifeq ($(TARGET_DEVICE),pepper)
++	LOCAL_CFLAGS += -DXPERIA_SOLA
++endif
++ifeq ($(TARGET_DEVICE),lotus)
++	LOCAL_CFLAGS += -DXPERIA_GO
++endif
++ifeq ($(TARGET_DEVICE),nypon)
++	LOCAL_CFLAGS += -DXPERIA_P
++endif
++
+ #LOCAL_STATIC_LIBRARIES := \
+ #    libext4_utils_static \
+ #    libsparse_static \
+diff --git a/bootable/recovery/data.cpp b/bootable/recovery/data.cpp
+index c9628a4..e414853 100644
+--- a/bootable/recovery/data.cpp
++++ b/bootable/recovery/data.cpp
+@@ -50,6 +50,10 @@
+ 	#include "cutils/properties.h"
+ #endif
+ 
++#ifdef XPERIA_TWRP_TOUCH
++	#include "xperia_nxt.h"
++#endif
++
+ extern "C"
+ {
+ 	#include "twcommon.h"
+@@ -1010,7 +1014,12 @@ int DataManager::GetMagicValue(const string varName, string& value)
+ 			capacity_file += "/capacity";
+ 			FILE * cap = fopen(capacity_file.c_str(),"rt");
+ #else
++	#ifdef XPERIA_TWRP_TOUCH
++			string capacity_file = BATTERY_CAPACITY_FILE;
++			FILE * cap = fopen(capacity_file.c_str(),"rt");
++	#else
+ 			FILE * cap = fopen("/sys/class/power_supply/battery/capacity","rt");
++	#endif
+ #endif
+ 			if (cap){
+ 				fgets(cap_s, 4, cap);
+@@ -1024,7 +1033,12 @@ int DataManager::GetMagicValue(const string varName, string& value)
+ 			status_file += "/status";
+ 			cap = fopen(status_file.c_str(),"rt");
+ #else
++	#ifdef XPERIA_TWRP_TOUCH
++			string status_file = BATTERY_CHARGING_STATUS_FILE;
++			cap = fopen(status_file.c_str(),"rt");
++	#else
+ 			cap = fopen("/sys/class/power_supply/battery/status","rt");
++	#endif
+ #endif
+ 			if (cap) {
+ 				fgets(cap_s, 2, cap);
+@@ -1035,6 +1049,22 @@ int DataManager::GetMagicValue(const string varName, string& value)
+ 					charging = ' ';
+ 			}
+ 			nextSecCheck = curTime.tv_sec + 60;
++#ifdef XPERIA_TWRP_TOUCH
++			string value_on = "255";
++			string value_off = "0";
++			if (charging == '+') {
++				if (lastVal >= 90) {
++					TWFunc::write_file(RED_LED_FILE, value_off);
++					TWFunc::write_file(GREEN_LED_FILE, value_on);
++				} else {
++					TWFunc::write_file(RED_LED_FILE, value_on);
++					TWFunc::write_file(GREEN_LED_FILE, value_off);
++				}
++			} else {
++					TWFunc::write_file(RED_LED_FILE, value_off);
++					TWFunc::write_file(GREEN_LED_FILE, value_off);
++			}
++#endif
+ 		}
+ 
+ 		sprintf(tmp, "%i%%%c", lastVal, charging);
+diff --git a/bootable/recovery/minuitwrp/events.c b/bootable/recovery/minuitwrp/events.c
+index 93c41f2..772ad2a 100644
+--- a/bootable/recovery/minuitwrp/events.c
++++ b/bootable/recovery/minuitwrp/events.c
+@@ -168,7 +168,13 @@ static int vk_init(struct ev *e)
+ #endif
+ 
+     // Blacklist these "input" devices
++#ifdef XPERIA_TWRP_TOUCH
++    if (strcmp(e->deviceName, "bma250") == 0 || strcmp(e->deviceName, "bma150") == 0
++        || strcmp(e->deviceName, "lsm303dlhc_acc_lt") == 0 || strcmp(e->deviceName, "lsm303dlh_mag") == 0
++        || strcmp(e->deviceName, "l3g4200d_gyr") == 0)
++#else
+     if (strcmp(e->deviceName, "bma250") == 0 || strcmp(e->deviceName, "bma150") == 0 || strcmp(e->deviceName, "accelerometer") == 0)
++#endif
+     {
+         e->ignored = 1;
+     }
+diff --git a/bootable/recovery/twrp.cpp b/bootable/recovery/twrp.cpp
+index ec87dd5..20b226b 100644
+--- a/bootable/recovery/twrp.cpp
++++ b/bootable/recovery/twrp.cpp
+@@ -81,6 +81,11 @@ int main(int argc, char **argv) {
+ 	time_t StartupTime = time(NULL);
+ 	printf("Starting TWRP %s on %s", TW_VERSION_STR, ctime(&StartupTime));
+ 
++	gui_print("================================\n");
++	gui_print("Team Win Recovery Project v%s\n", TW_VERSION_STR);
++	gui_print("Modified by NoobCoder(Agontuk)\n");
++	gui_print("================================\n\n");
++
+ 	// Load default values to set DataManager constants and handle ifdefs
+ 	DataManager::SetDefaultValues();
+ 	printf("Starting the UI...");
+diff --git a/bootable/recovery/xperia_nxt.h b/bootable/recovery/xperia_nxt.h
+new file mode 100644
+index 0000000..6d4929e
+--- /dev/null
++++ b/bootable/recovery/xperia_nxt.h
+@@ -0,0 +1,26 @@
++/*
++ *
++ * Constants For Xperia NXT Series
++ *
++ */
++
++#ifndef XPERIA_NXT_H
++#define XPERIA_NXT_H
++
++#define BATTERY_CAPACITY_FILE "/sys/class/power_supply/ab8500_fg/capacity"
++#define BATTERY_CHARGING_STATUS_FILE "/sys/class/power_supply/ab8500_chargalg/status"
++
++#ifdef XPERIA_U
++	#define RED_LED_FILE "/sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/pwr-red/brightness"
++	#define GREEN_LED_FILE "/sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/pwr-green/brightness"
++#endif /* XPERIA_U */
++#if (defined XPERIA_GO || defined XPERIA_SOLA)
++	#define RED_LED_FILE "/sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/red/brightness"
++	#define GREEN_LED_FILE "/sys/devices/platform/nmk-i2c.2/i2c-2/2-0040/leds/green/brightness"
++#endif /* XPERIA_GO, XPERIA_SOLA */
++#ifdef XPERIA_P
++	#define RED_LED_FILE "/sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/red/brightness"
++	#define GREEN_LED_FILE "/sys/devices/platform/nmk-i2c.2/i2c-2/2-0036/leds/green/brightness"
++#endif /* XPERIA_P */
++
++#endif
+

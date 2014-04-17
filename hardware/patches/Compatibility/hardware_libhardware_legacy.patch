@@ -1,0 +1,17 @@
+diff --git a/hardware/libhardware_legacy/audio/audio_policy_hal.cpp b/hardware/libhardware_legacy/audio/audio_policy_hal.cpp
+index 0e03358..a23c22c 100644
+--- a/hardware/libhardware_legacy/audio/audio_policy_hal.cpp
++++ b/hardware/libhardware_legacy/audio/audio_policy_hal.cpp
+@@ -374,8 +374,12 @@ static int create_legacy_ap(const struct audio_policy_device *device,
+     lap->policy.unregister_effect = ap_unregister_effect;
+     lap->policy.set_effect_enabled = ap_set_effect_enabled;
+     lap->policy.is_stream_active = ap_is_stream_active;
++#ifndef ICS_AUDIO_BLOB
++#ifndef MR1_AUDIO_BLOB
+     lap->policy.is_stream_active_remotely = ap_is_stream_active_remotely;
++#endif
+     lap->policy.is_source_active = ap_is_source_active;
++#endif
+     lap->policy.dump = ap_dump;
+     lap->policy.is_offload_supported = ap_is_offload_supported;
+ 

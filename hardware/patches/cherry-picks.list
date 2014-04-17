@@ -1,0 +1,2 @@
+build|-m 1 7a77261988354b13996e5ba84b87351b571a5a52|Support for Make 4.0
+frameworks/native|ddd286301b466b5cd10cfcdc0a5ee5729ef2e385|Fix undefined symbol '_ZN7android10MemoryBaseC1ERKNS_2spINS_11IMemoryHeapEEElj'

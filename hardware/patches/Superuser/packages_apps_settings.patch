@@ -1,0 +1,130 @@
+diff --git a/packages/apps/Settings/Android.mk b/packages/apps/Settings/Android.mk
+index 8b6532c..d63f1e1 100644
+--- a/packages/apps/Settings/Android.mk
++++ b/packages/apps/Settings/Android.mk
+@@ -16,7 +16,11 @@ LOCAL_PRIVILEGED_MODULE := true
+ 
+ LOCAL_PROGUARD_FLAG_FILES := proguard.flags
+ 
+-LOCAL_AAPT_FLAGS += -c zz_ZZ
++LOCAL_AAPT_INCLUDE_ALL_RESOURCES := true
++LOCAL_AAPT_FLAGS += --extra-packages com.koushikdutta.superuser:com.koushikdutta.widgets -S $(LOCAL_PATH)/../../../external/koush/Widgets/Widgets/res -S $(LOCAL_PATH)/../../../external/koush/Superuser/Superuser/res --auto-add-overlay
++
++LOCAL_SRC_FILES += $(call all-java-files-under,../../../external/koush/Superuser/Superuser/src) $(call all-java-files-under,../../../external/koush/Widgets/Widgets/src)
++
+ 
+ include $(BUILD_PACKAGE)
+ 
+diff --git a/packages/apps/Settings/AndroidManifest.xml b/packages/apps/Settings/AndroidManifest.xml
+index 7c4be12..a39b70b 100644
+--- a/packages/apps/Settings/AndroidManifest.xml
++++ b/packages/apps/Settings/AndroidManifest.xml
+@@ -68,6 +68,29 @@
+     <uses-permission android:name="android.permission.REBOOT" />
+     <uses-permission android:name="android.permission.MANAGE_DEVICE_ADMINS" />
+ 
++    <permission
++        android:name="android.permission.REQUEST_SUPERUSER"
++        android:protectionLevel="signature" />
++    <permission
++        android:name="android.permission.REPORT_SUPERUSER"
++        android:protectionLevel="signature" />
++
++    <permission-group
++        android:name="android.permission-group.SUPERUSER"
++        android:description="@string/superuser_description_more"
++        android:icon="@drawable/ic_action_permission"
++        android:label="@string/superuser"
++        android:priority="10000" />
++
++    <permission
++        android:name="android.permission.ACCESS_SUPERUSER"
++        android:description="@string/superuser_description_more"
++        android:icon="@drawable/ic_action_permission"
++        android:label="@string/superuser_description"
++        android:logo="@drawable/ic_action_permission"
++        android:permissionGroup="android.permission-group.SUPERUSER"
++        android:protectionLevel="dangerous" />
++
+     <application android:label="@string/settings_label"
+             android:icon="@mipmap/ic_launcher_settings"
+             android:taskAffinity=""
+@@ -76,6 +99,47 @@
+             android:requiredForAllUsers="true"
+             android:supportsRtl="true">
+ 
++        <!-- Only system/su can open this activity -->
++        <!-- This activity will then call the MultitaskSuRequestActivity to create a new task stack -->
++        <activity
++            android:name="com.koushikdutta.superuser.RequestActivity"
++            android:configChanges="keyboardHidden|orientation|screenSize"
++            android:label="@string/superuser"
++            android:launchMode="singleTask"
++            android:excludeFromRecents="true"
++            android:permission="android.permission.REQUEST_SUPERUSER"
++            android:process=":superuser"
++            android:taskAffinity="com.android.settings.superuser"
++            android:theme="@style/RequestThemeDark" />
++        <!-- Only system/su can open this activity -->
++        <!-- This is activity is started in multiuser mode when the user invoking su -->
++        <!-- is not the device owner (user id 0). -->
++        <activity
++            android:name="com.koushikdutta.superuser.NotifyActivity"
++            android:configChanges="keyboardHidden|orientation|screenSize"
++            android:label="@string/superuser"
++            android:launchMode="singleTask"
++            android:excludeFromRecents="true"
++            android:permission="android.permission.REQUEST_SUPERUSER"
++            android:process=":superuser"
++            android:taskAffinity="com.android.settings.superuser"
++            android:theme="@style/RequestThemeDark" />
++
++        <!-- Multiple instances of this activity can be running for multiple su requests -->
++        <activity
++            android:name="com.koushikdutta.superuser.MultitaskSuRequestActivity"
++            android:configChanges="keyboardHidden|orientation|screenSize"
++            android:excludeFromRecents="true"
++            android:exported="false"
++            android:label="@string/request"
++            android:process=":superuser"
++            android:taskAffinity="com.android.settings.superuser"
++            android:theme="@style/RequestThemeDark" />
++
++        <receiver
++            android:name="com.koushikdutta.superuser.SuReceiver"
++            android:permission="android.permission.REPORT_SUPERUSER" />
++
+         <!-- Settings -->
+ 
+         <activity android:name="Settings"
+diff --git a/packages/apps/Settings/proguard.flags b/packages/apps/Settings/proguard.flags
+index 211a5a4..2ade1f0 100644
+--- a/packages/apps/Settings/proguard.flags
++++ b/packages/apps/Settings/proguard.flags
+@@ -14,6 +14,7 @@
+ -keep class com.android.settings.users.*
+ -keep class com.android.settings.NotificationStation
+ -keep class com.android.settings.nfc.*
++-keep class com.koushikdutta.**
+ 
+ # Keep click responders
+ -keepclassmembers class com.android.settings.inputmethod.UserDictionaryAddWordActivity {
+diff --git a/packages/apps/Settings/res/xml/settings_headers.xml b/packages/apps/Settings/res/xml/settings_headers.xml
+index 8744328..56671e7 100644
+--- a/packages/apps/Settings/res/xml/settings_headers.xml
++++ b/packages/apps/Settings/res/xml/settings_headers.xml
+@@ -174,6 +174,13 @@
+     <header android:id="@+id/system_section"
+         android:title="@string/header_category_system" />
+ 
++    <!-- Superuser -->
++    <header
++        android:id="@+id/superuser"
++        android:fragment="com.koushikdutta.superuser.PolicyNativeFragment"
++        android:icon="@drawable/ic_action_permission"
++        android:title="@string/superuser" />
++
+     <!-- Date & Time -->
+     <header
+         android:id="@+id/date_time_settings"
+

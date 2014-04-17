@@ -1,0 +1,25 @@
+diff --git a/packages/apps/Launcher3/src/com/android/launcher3/Launcher.java b/packages/apps/Launcher3/src/com/android/launcher3/Launcher.java
+index b0e4968..1914eff 100644
+--- a/packages/apps/Launcher3/src/com/android/launcher3/Launcher.java
++++ b/packages/apps/Launcher3/src/com/android/launcher3/Launcher.java
+@@ -978,6 +978,11 @@ public class Launcher extends Activity
+     }
+ 
+     protected void startSettings() {
++       Intent i = new Intent(android.provider.Settings.ACTION_SETTINGS);
++       startActivity(i);
++       if (mWorkspace.isInOverviewMode()) {
++           mWorkspace.exitOverviewMode(false);
++       }
+     }
+ 
+     public interface QSBScroller {
+@@ -1874,7 +1879,7 @@ public class Launcher extends Activity
+     @Override
+     public boolean onPrepareOptionsMenu(Menu menu) {
+         super.onPrepareOptionsMenu(menu);
+-        if (!mWorkspace.isInOverviewMode()) {
++        if (!mWorkspace.isInOverviewMode() && !isAllAppsVisible()) {
+             mWorkspace.enterOverviewMode();
+         }
+         return false;

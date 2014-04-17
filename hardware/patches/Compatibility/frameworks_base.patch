@@ -1,0 +1,71 @@
+diff --git a/frameworks/base/telephony/java/android/telephony/SignalStrength.java b/frameworks/base/telephony/java/android/telephony/SignalStrength.java
+index 7b9cf4e..7761cef 100644
+--- a/frameworks/base/telephony/java/android/telephony/SignalStrength.java
++++ b/frameworks/base/telephony/java/android/telephony/SignalStrength.java
+@@ -471,10 +471,7 @@ public class SignalStrength implements Parcelable {
+         int level;
+ 
+         if (isGsm) {
+-            level = getLteLevel();
+-            if (level == SIGNAL_STRENGTH_NONE_OR_UNKNOWN) {
+                 level = getGsmLevel();
+-            }
+         } else {
+             int cdmaLevel = getCdmaLevel();
+             int evdoLevel = getEvdoLevel();
+@@ -501,11 +498,7 @@ public class SignalStrength implements Parcelable {
+     public int getAsuLevel() {
+         int asuLevel;
+         if (isGsm) {
+-            if (getLteLevel() == SIGNAL_STRENGTH_NONE_OR_UNKNOWN) {
+                 asuLevel = getGsmAsuLevel();
+-            } else {
+-                asuLevel = getLteAsuLevel();
+-            }
+         } else {
+             int cdmaAsuLevel = getCdmaAsuLevel();
+             int evdoAsuLevel = getEvdoAsuLevel();
+@@ -533,11 +526,7 @@ public class SignalStrength implements Parcelable {
+         int dBm;
+ 
+         if(isGsm()) {
+-            if (getLteLevel() == SIGNAL_STRENGTH_NONE_OR_UNKNOWN) {
+                 dBm = getGsmDbm();
+-            } else {
+-                dBm = getLteDbm();
+-            }
+         } else {
+             int cdmaDbm = getCdmaDbm();
+             int evdoDbm = getEvdoDbm();
+diff --git a/frameworks/base/wifi/java/android/net/wifi/p2p/WifiP2pService.java b/frameworks/base/wifi/java/android/net/wifi/p2p/WifiP2pService.java
+index 8b07208..fa34ff5 100644
+--- a/frameworks/base/wifi/java/android/net/wifi/p2p/WifiP2pService.java
++++ b/frameworks/base/wifi/java/android/net/wifi/p2p/WifiP2pService.java
+@@ -313,7 +313,7 @@ public class WifiP2pService extends IWifiP2pManager.Stub {
+         mContext = context;
+ 
+         //STOPSHIP: get this from native side
+-        mInterface = "p2p0";
++        mInterface = SystemProperties.get("wifi.p2pinterface", "p2p0");
+         mNetworkInfo = new NetworkInfo(ConnectivityManager.TYPE_WIFI_P2P, 0, NETWORKTYPE, "");
+ 
+         mP2pSupported = mContext.getPackageManager().hasSystemFeature(
+
+diff --git a/frameworks/base/data/etc/platform.xml b/frameworks/base/data/etc/platform.xml
+index 3857ec0..8475204 100644
+--- a/frameworks/base/data/etc/platform.xml
++++ b/frameworks/base/data/etc/platform.xml
+@@ -60,11 +60,13 @@
+
+     <permission name="android.permission.READ_EXTERNAL_STORAGE" >
+         <group gid="sdcard_r" />
++        <group gid="media_rw" />
+     </permission>
+
+     <permission name="android.permission.WRITE_EXTERNAL_STORAGE" >
+         <group gid="sdcard_r" />
+         <group gid="sdcard_rw" />
++        <group gid="media_rw" />
+     </permission>
+
+     <permission name="android.permission.ACCESS_ALL_EXTERNAL_STORAGE" >

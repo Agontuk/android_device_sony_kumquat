@@ -1,0 +1,157 @@
+diff --git a/packages/apps/Camera2/res/values/arrays.xml b/packages/apps/Camera2/res/values/arrays.xml
+index 050f5a6..4661970 100644
+--- a/packages/apps/Camera2/res/values/arrays.xml
++++ b/packages/apps/Camera2/res/values/arrays.xml
+@@ -155,12 +155,21 @@
+     <!-- Camera Preferences Picture size dialog box entries -->
+     <string-array name="pref_camera_picturesize_entries" translatable="false">
+         <item>@string/pref_camera_picturesize_entry_13mp</item>
++        <item>@string/pref_camera_picturesize_entry_12_8mp</item>
++        <item>@string/pref_camera_picturesize_entry_11_5mp</item>
++        <item>@string/pref_camera_picturesize_entry_9mp_wide</item>
+         <item>@string/pref_camera_picturesize_entry_8mp</item>
++        <item>@string/pref_camera_picturesize_entry_6_4mp</item>
++        <item>@string/pref_camera_picturesize_entry_6mp_wide</item>
+         <item>@string/pref_camera_picturesize_entry_5mp</item>
+         <item>@string/pref_camera_picturesize_entry_5mp</item>
+         <item>@string/pref_camera_picturesize_entry_5mp</item>
++        <item>@string/pref_camera_picturesize_entry_4_5mp</item>
+         <item>@string/pref_camera_picturesize_entry_4mp</item>
++        <item>@string/pref_camera_picturesize_entry_3_7mp_wide</item>
+         <item>@string/pref_camera_picturesize_entry_3mp</item>
++        <item>@string/pref_camera_picturesize_entry_2_5mp</item>
++        <item>@string/pref_camera_picturesize_entry_2_1mp_wide</item>
+         <item>@string/pref_camera_picturesize_entry_2mp</item>
+         <item>@string/pref_camera_picturesize_entry_2mp_wide</item>
+         <item>@string/pref_camera_picturesize_entry_2mp_wide</item>
+@@ -170,7 +179,12 @@
+         <item>@string/pref_camera_picturesize_entry_1mp</item>
+         <item>960 x 720</item>
+         <item>720 x 480</item>
++        <item>@string/pref_camera_picturesize_entry_wxga</item>
++        <item>@string/pref_camera_picturesize_entry_xga</item>
++        <item>@string/pref_camera_picturesize_entry_svga</item>
++        <item>@string/pref_camera_picturesize_entry_wvga</item>
+         <item>@string/pref_camera_picturesize_entry_vga</item>
++        <item>@string/pref_camera_picturesize_entry_wqvga</item>
+         <item>@string/pref_camera_picturesize_entry_qvga</item>
+     </string-array>
+ 
+@@ -179,12 +193,21 @@
+          driver -->
+     <string-array name="pref_camera_picturesize_entryvalues" translatable="false">
+         <item>4128x3096</item>
++        <item>4128x3096</item>
++        <item>3920x2940</item>
++        <item>3920x2204</item>
+         <item>3264x2448</item>
++        <item>3264x1968</item>
++        <item>3264x1836</item>
+         <item>2592x1944</item>
+         <item>2592x1936</item>
+         <item>2560x1920</item>
++        <item>2592x1728</item>
+         <item>2688x1520</item>
++        <item>2560x1440</item>
+         <item>2048x1536</item>
++        <item>2048x1232</item>
++        <item>1920x1080</item>
+         <item>1600x1200</item>
+         <item>1920x1088</item>
+         <item>1920x1080</item>
+@@ -192,10 +215,15 @@
+         <item>1280x960</item>
+         <item>1280x720</item>
+         <item>1024x768</item>
++        <item>1024x600</item>
+         <item>960x720</item>
++        <item>800x600</item>
++        <item>800x480</item>
+         <item>720x480</item>
+         <item>640x480</item>
++        <item>480x320</item>
+         <item>320x240</item>
++        <item>176x144</item>
+     </string-array>
+ 
+     <!-- Camera Preferences focus mode dialog box entries -->
+diff --git a/packages/apps/Camera2/res/values/strings.xml b/packages/apps/Camera2/res/values/strings.xml
+index 9879864..cdeefd9 100644
+--- a/packages/apps/Camera2/res/values/strings.xml
++++ b/packages/apps/Camera2/res/values/strings.xml
+@@ -281,9 +281,47 @@
+     <!-- Settings screen, dialog choice for VGA picture size [CHAR LIMIT=20] -->
+     <string name="pref_camera_picturesize_entry_vga">VGA</string>
+     <!-- Settings screen, dialog choice for QVGA picture size [CHAR LIMIT=20] -->
+-
+     <string name="pref_camera_picturesize_entry_qvga">QVGA</string>
+ 
++    <!-- Settings screen, dialog choice for 12.8 megapixels picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_12_8mp">12.8M pixels</string>
++    <!-- Settings screen, dialog choice for 12 megapixels picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_12mp">12M pixels</string>
++    <!-- Settings screen, dialog choice for 11.5 megapixels picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_11_5mp">11.5M pixels</string>
++    <!-- Settings screen, dialog choice for 9 megapixels picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_9mp">9M pixels</string>
++    <!-- Settings screen, dialog choice for 9 megapixels wide picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_9mp_wide">9M pixels (16:9)</string>
++    <!-- Settings screen, dialog choice for 7.6 megapixels picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_7_6mp">7.6M pixels</string>
++    <!-- Settings screen, dialog choice for 6.4 megapixels picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_6_4mp">6.4M pixels</string>
++    <!-- Settings screen, dialog choice for 6 megapixels picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_6mp">6M pixels</string>
++    <!-- Settings screen, dialog choice for 6 megapixels wide picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_6mp_wide">6M pixels (16:9)</string>
++    <!-- Settings screen, dialog choice for 4.5 megapixels picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_4_5mp">4.5M pixels</string>
++    <!-- Settings screen, dialog choice for 3.7 megapixels wide picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_3_7mp_wide">3.7M pixels (16:9)</string>
++    <!-- Settings screen, dialog choice for 2.5 megapixels picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_2_5mp">2.5M pixels</string>
++    <!-- Settings screen, dialog choice for 2.1 megapixels wide picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_2_1mp_wide">2.1M pixels (16:9)</string>
++    <!-- Settings screen, dialog choice for 1.9 megapixels picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_1_9mp">1.9M pixels</string>
++    <!-- Settings screen, dialog choice for WXGA picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_wxga">WXGA</string>
++    <!-- Settings screen, dialog choice for XGA picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_xga">XGA</string>
++    <!-- Settings screen, dialog choice for SVGA picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_svga">SVGA</string>
++    <!-- Settings screen, dialog choice for WVGA picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_wvga">WVGA</string>
++    <!-- Settings screen, dialog choice for WQVGA picture size [CHAR LIMIT=15] -->
++    <string name="pref_camera_picturesize_entry_wqvga">WQVGA</string>
++
+     <!-- Settings screen, Focus mode title -->
+     <string name="pref_camera_focusmode_title">Focus mode</string>
+ 
+diff --git a/packages/apps/Camera2/src/com/android/camera/ListPreference.java b/packages/apps/Camera2/src/com/android/camera/ListPreference.java
+index 909b32c..517f5f9 100644
+--- a/packages/apps/Camera2/src/com/android/camera/ListPreference.java
++++ b/packages/apps/Camera2/src/com/android/camera/ListPreference.java
+@@ -171,15 +171,20 @@ public class ListPreference extends CameraPreference {
+     public void filterUnsupported(List<String> supported) {
+         ArrayList<CharSequence> entries = new ArrayList<CharSequence>();
+         ArrayList<CharSequence> entryValues = new ArrayList<CharSequence>();
++        ArrayList<CharSequence> labels = new ArrayList<CharSequence>();
+         for (int i = 0, len = mEntryValues.length; i < len; i++) {
+             if (supported.indexOf(mEntryValues[i].toString()) >= 0) {
+                 entries.add(mEntries[i]);
+                 entryValues.add(mEntryValues[i]);
++                if (mLabels != null && mLabels.length > 0) {
++                    labels.add(mLabels[i]);
++                }
+             }
+         }
+         int size = entries.size();
+         mEntries = entries.toArray(new CharSequence[size]);
+         mEntryValues = entryValues.toArray(new CharSequence[size]);
++        mLabels = labels.toArray(new CharSequence[size]);
+     }
+
+     public void filterDuplicated() {
+
+

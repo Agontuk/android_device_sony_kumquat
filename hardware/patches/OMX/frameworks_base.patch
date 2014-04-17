@@ -1,0 +1,43 @@
+diff --git a/frameworks/base/core/jni/android_view_HardwareRenderer.cpp b/frameworks/base/core/jni/android_view_HardwareRenderer.cpp
+index 479fbe2..712e76b 100644
+--- a/frameworks/base/core/jni/android_view_HardwareRenderer.cpp
++++ b/frameworks/base/core/jni/android_view_HardwareRenderer.cpp
+@@ -125,9 +125,11 @@ static void android_view_HardwareRenderer_beginFrame(JNIEnv* env, jobject clazz,
+ }
+ 
+ static jlong android_view_HardwareRenderer_getSystemTime(JNIEnv* env, jobject clazz) {
++#ifndef STE_HARDWARE
+     if (uirenderer::Extensions::getInstance().hasNvSystemTime()) {
+         return eglGetSystemTimeNV();
+     }
++#endif
+     return systemTime(SYSTEM_TIME_MONOTONIC);
+ }
+ 
+diff --git a/frameworks/base/core/jni/android_media_AudioRecord.cpp b/frameworks/base/core/jni/android_media_AudioRecord.cpp
+index 479fbe2..712e76b 100644
+--- a/frameworks/base/core/jni/android_media_AudioRecord.cpp
++++ b/frameworks/base/core/jni/android_media_AudioRecord.cpp
+@@ -197,9 +197,19 @@ int getformatrec(int audioformat)
+                 // Java channel masks map directly to the native definition
+         jint audioFormat, jint buffSizeInBytes, jintArray jSession)
+ {
+-    //ALOGV(">> Entering android_media_AudioRecord_setup");
+-    //ALOGV("sampleRate=%d, audioFormat=%d, channel mask=%x, buffSizeInBytes=%d",
+-    //     sampleRateInHertz, audioFormat, channelMask, buffSizeInBytes);
++	//ALOGI(">> Entering android_media_AudioRecord_setup");
++    //ALOGI("sampleRate=%d, audioFormat=%d, channel mask=%x, buffSizeInBytes=%d, source=%d",
++    //     sampleRateInHertz, audioFormat, channelMask, buffSizeInBytes, source);
++#ifdef STE_HARDWARE
++	ALOGI(">> Entering android_media_AudioRecord_setup");
++    ALOGI("sampleRate=%d, audioFormat=%d, channel mask=%x, buffSizeInBytes=%d, source=%d",
++         sampleRateInHertz, audioFormat, channelMask, buffSizeInBytes, source);
++    /* We don't have mic source 1999 so switch to regular mic source 1*/
++    if(source == 1999){
++		source = 1;
++		ALOGI("STE_HARDWARE source switched from 1999 to 1");
++	}
++#endif
+ 
+     if (!audio_is_input_channel(channelMask)) {
+         ALOGE("Error creating AudioRecord: channel mask %#x is not valid.", channelMask); 

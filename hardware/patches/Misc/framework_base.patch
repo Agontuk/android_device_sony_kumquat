@@ -1,0 +1,370 @@
+From 575d8e89016f8912edce75a870b9565e17e964ac Mon Sep 17 00:00:00 2001
+From: DvTonder <david.vantonder@gmail.com>
+Date: Sat, 24 Nov 2012 10:43:30 -0500
+Subject: [PATCH] Framework: Forward port Power menu reboot by DvTonder
+
+This is a stripped down version of his power menu config patch
+
+Change-Id: I5cc9f900bdb2bb1f0a11014a09f8c792cac850e7
+---
+ core/java/android/view/WindowManagerPolicy.java      |   1 +
+ core/res/res/drawable-hdpi/ic_lock_reboot.png        | Bin 0 -> 1645 bytes
+ core/res/res/drawable-mdpi/ic_lock_reboot.png        | Bin 0 -> 3374 bytes
+ core/res/res/drawable-xhdpi/ic_lock_reboot.png       | Bin 0 -> 1558 bytes
+ core/res/res/values/symbols.xml                      |   4 ++++
+ .../android/internal/policy/impl/GlobalActions.java  |  19 +++++++++++++++++++
+ .../com/android/server/wm/WindowManagerService.java  |  11 +++++++++++
+ 7 files changed, 35 insertions(+)
+ create mode 100644 core/res/res/drawable-hdpi/ic_lock_reboot.png
+ create mode 100644 core/res/res/drawable-mdpi/ic_lock_reboot.png
+ create mode 100644 core/res/res/drawable-xhdpi/ic_lock_reboot.png
+
+diff --git a/frameworks/base/core/java/android/view/WindowManagerPolicy.java b/frameworks/base/core/java/android/view/WindowManagerPolicy.java
+index c5a1b86..7d45728 100644
+--- a/frameworks/base/core/java/android/view/WindowManagerPolicy.java
++++ b/frameworks/base/core/java/android/view/WindowManagerPolicy.java
+@@ -417,6 +417,7 @@ public interface WindowManagerPolicy {
+ 
+         public void shutdown(boolean confirm);
+         public void rebootSafeMode(boolean confirm);
++        public void reboot();
+ 
+         /**
+          * Return the window manager lock needed to correctly call "Lw" methods.
+diff --git a/frameworks/base/core/res/res/drawable-hdpi/ic_lock_reboot.png b/frameworks/base/core/res/res/drawable-hdpi/ic_lock_reboot.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..ca00936e5406a6ccb3c9b1629d06eae10c820b49
+GIT binary patch
+literal 1645
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/frameworks/base/core/res/res/drawable-mdpi/ic_lock_reboot.png b/frameworks/base/core/res/res/drawable-mdpi/ic_lock_reboot.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..2b125b98f4cba4bc7d0c2cd619e50f54343de7fc
+GIT binary patch
+literal 3374
+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
+Ef|(^cwg3PC
+
+literal 0
+HcmV?d00001
+
+diff --git a/frameworks/base/core/res/res/drawable-xhdpi/ic_lock_reboot.png b/frameworks/base/core/res/res/drawable-xhdpi/ic_lock_reboot.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..653970f226006a136b4ec8b18186934e148758cc
+GIT binary patch
+literal 1558
+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
+IM6N<$g0FPAvH$=8
+
+literal 0
+HcmV?d00001
+
+diff --git a/frameworks/base/core/res/res/values/symbols.xml b/frameworks/base/core/res/res/values/symbols.xml
+index fce7a98..2dcca63 100644
+--- a/frameworks/base/core/res/res/values/symbols.xml
++++ b/frameworks/base/core/res/res/values/symbols.xml
+@@ -1750,4 +1750,8 @@
+   <java-symbol type="dimen" name="subtitle_shadow_radius" />
+   <java-symbol type="dimen" name="subtitle_shadow_offset" />
+   <java-symbol type="dimen" name="subtitle_outline_width" />
++
++  <java-symbol type="drawable" name="ic_lock_reboot" />
++  <java-symbol type="string" name="global_action_reboot" />
++
+ </resources>
+diff --git a/frameworks/base/core/res/res/values/strings.xml b/frameworks/base/core/res/res/values/strings.xml
+index 9025400..514b5ef 100644
+--- a/frameworks/base/core/res/res/values/strings.xml
++++ b/frameworks/base/core/res/res/values/strings.xml
+@@ -3418,6 +3418,9 @@
+     <!-- SIM swap and device reboot Dialog --> <skip />
+     <!-- See SIM_REMOVED_DIALOG.  This is the title of that dialog. -->
+     <string name="sim_removed_title">SIM card removed</string>
++    <!-- advance reboot -->
++    <string name="global_action_reboot">Reboot</string>
++
+     <!-- See SIM_REMOVED_DIALOG.  This is the message of that dialog. -->
+     <string name="sim_removed_message">The mobile network will be unavailable until you restart with a valid SIM card inserted.</string>
+     <!-- See SIM_REMOVED_DIALOG.  This is the button of that dialog. -->
+diff --git a/frameworks/base/policy/src/com/android/internal/policy/impl/GlobalActions.java b/frameworks/base/policy/src/com/android/internal/policy/impl/GlobalActions.java
+index 884f57e..b015671 100644
+--- a/frameworks/base/policy/src/com/android/internal/policy/impl/GlobalActions.java
++++ b/frameworks/base/policy/src/com/android/internal/policy/impl/GlobalActions.java
+@@ -246,6 +246,25 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
+                     mWindowManagerFuncs.shutdown(true);
+                 }
+ 
++                public boolean showDuringKeyguard() {
++                    return true;
++                }
++
++                public boolean showBeforeProvisioning() {
++                    return true;
++                }
++            });
++
++        // next: reboot
++        // Unlike in CM, we'll always have this here until we decide otherwise.
++        // The Settings component of this is a mess and how many people actually disable this?
++        // Someone else can readd the ability to disable this if they don't want it.
++        mItems.add(
++            new SinglePressAction(R.drawable.ic_lock_reboot, R.string.global_action_reboot) {
++                public void onPress() {
++                    mWindowManagerFuncs.reboot();
++                }
++
+                 public boolean onLongPress() {
+                     mWindowManagerFuncs.rebootSafeMode(true);
+                     return true;
+diff --git a/frameworks/base/services/java/com/android/server/wm/WindowManagerService.java b/frameworks/base/services/java/com/android/server/wm/WindowManagerService.java
+index cfb10a0..4baf48b 100644
+--- a/frameworks/base/services/java/com/android/server/wm/WindowManagerService.java
++++ b/frameworks/base/services/java/com/android/server/wm/WindowManagerService.java
+@@ -310,6 +310,7 @@ public class WindowManagerService extends IWindowManager.Stub
+     int mCurrentUserId;
+ 
+     final Context mContext;
++    private Context mUiContext;
+ 
+     final boolean mHaveInputMethods;
+ 
+@@ -804,6 +805,10 @@ public class WindowManagerService extends IWindowManager.Stub
+         return mInputMonitor;
+     }
+ 
++    private Context getUiContext() {
++       return mContext;
++   }
++
+     @Override
+     public boolean onTransact(int code, Parcel data, Parcel reply, int flags)
+             throws RemoteException {
+@@ -5196,6 +5201,12 @@ public class WindowManagerService extends IWindowManager.Stub
+         mPolicy.setTouchExplorationEnabled(enabled);
+     }
+ 
++    // Called by window manager policy.  Not exposed externally.
++    @Override
++    public void reboot() {
++        ShutdownThread.reboot(getUiContext(), null, true);
++    }
++
+     public void setCurrentUser(final int newUserId) {
+         synchronized (mWindowMap) {
+             int oldUserId = mCurrentUserId;
+-- 
+1.8.3.2
+
+From 149713709704efdea73512290a4c834f257d1884 Mon Sep 17 00:00:00 2001
+From: Arham Jamal <arhamjamal@gmail.com>
+Date: Tue, 7 Feb 2012 23:25:51 +0700
+Subject: [PATCH] Improve scrolling cache
+
+Scrolling cache helps make short scrolls/flings smooth but will
+cause stutter when long flings are made. This patch disables
+scrolling cache when long flings are made.
+
+This patch also fixes a related bug where scrolling cache will
+not be enabled properly when transitioning from flinging to scrolling.
+
+Patch Set 2: Calculate threshold based on maximum velocity (Sang Tae Park)
+
+Credits: Pawit Pornkitprasan
+
+Change-Id: I1fdbaad92263c9f983a32900e74eba1f0367902b
+Signed-off-by: Arham Jamal <arhamjamal@gmail.com>
+---
+ core/java/android/widget/AbsListView.java | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/frameworks/base/core/java/android/widget/AbsListView.java b/frameworks/base/core/java/android/widget/AbsListView.java
+index 3eb0052..591b9c5 100644
+--- a/frameworks/base/core/java/android/widget/AbsListView.java
++++ b/frameworks/base/core/java/android/widget/AbsListView.java
+@@ -595,6 +595,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
+     Runnable mPositionScrollAfterLayout;
+     private int mMinimumVelocity;
+     private int mMaximumVelocity;
++    private int mDecacheThreshold;
+     private float mVelocityScale = 1.0f;
+ 
+     final boolean[] mIsScrap = new boolean[1];
+@@ -831,6 +832,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
+         mTouchSlop = configuration.getScaledTouchSlop();
+         mMinimumVelocity = configuration.getScaledMinimumFlingVelocity();
+         mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();
++        mDecacheThreshold = mMaximumVelocity / 2;
+         mOverscrollDistance = configuration.getScaledOverscrollDistance();
+         mOverflingDistance = configuration.getScaledOverflingDistance();
+ 
+@@ -4080,7 +4082,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
+                     // Keep the fling alive a little longer
+                     postDelayed(this, FLYWHEEL_TIMEOUT);
+                 } else {
+-                    endFling();
++                    endFling(false); // Don't disable the scrolling cache right after it was enabled
+                     mTouchMode = TOUCH_MODE_SCROLL;
+                     reportScrollStateChange(OnScrollListener.SCROLL_STATE_TOUCH_SCROLL);
+                 }
+@@ -4094,6 +4096,11 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
+         }
+ 
+         void start(int initialVelocity) {
++            if (Math.abs(initialVelocity) > mDecacheThreshold) {
++                // For long flings, scrolling cache causes stutter, so don't use it
++                clearScrollingCache();
++            }
++
+             int initialY = initialVelocity < 0 ? Integer.MAX_VALUE : 0;
+             mLastFlingY = initialY;
+             mScroller.setInterpolator(null);
+@@ -4166,13 +4173,18 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
+         }
+ 
+         void endFling() {
++            endFling(true);
++        }
++
++        void endFling(boolean clearCache) {
+             mTouchMode = TOUCH_MODE_REST;
+ 
+             removeCallbacks(this);
+             removeCallbacks(mCheckFlywheel);
+ 
+             reportScrollStateChange(OnScrollListener.SCROLL_STATE_IDLE);
+-            clearScrollingCache();
++            if (clearCache)
++                clearScrollingCache();
+             mScroller.abortAnimation();
+ 
+             if (mFlingStrictSpan != null) {
+-- 
+1.8.3.2

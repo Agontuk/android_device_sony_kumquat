@@ -1,0 +1,32 @@
+From 38474355c353193d5b1424a845bdf129315b5873 Mon Sep 17 00:00:00 2001
+From: William Bellavance <flintman@flintmancomputers.com>
+Date: Sat, 5 Jan 2013 18:40:58 -0500
+Subject: [PATCH] VoiceDialer:  Allow App to load if Bluetooth is off
+
+Added a check to see it bluetooth is enabled.  If disabled then
+allows app to start and uses mic.  If bluetooth is enabled then
+will check for connected device.  If none will use the mic,  if
+device is connect then will use it.
+
+Change-Id: I4bcc510576dc668cd847e22e5e7ec9b88156c610
+---
+ packages/apps/VoiceDialer/src/com/android/voicedialer/VoiceDialerActivity.java | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/packages/apps/VoiceDialer/src/com/android/voicedialer/VoiceDialerActivity.java b/packages/apps/VoiceDialer/src/com/android/voicedialer/VoiceDialerActivity.java
+index 47caeef..1336605 100644
+--- a/packages/apps/VoiceDialer/src/com/android/voicedialer/VoiceDialerActivity.java
++++ b/packages/apps/VoiceDialer/src/com/android/voicedialer/VoiceDialerActivity.java
+@@ -234,7 +234,8 @@ public class VoiceDialerActivity extends Activity {
+         mChoiceClient = new ChoiceRecognizerClient();
+ 
+         mAdapter = BluetoothAdapter.getDefaultAdapter();
+-        if (BluetoothHeadset.isBluetoothVoiceDialingEnabled(this) && mAdapter != null) {
++        if (BluetoothHeadset.isBluetoothVoiceDialingEnabled(this) && mAdapter != null
++                && mAdapter.isEnabled()) {
+            if (!mAdapter.getProfileProxy(this, mBluetoothHeadsetServiceListener,
+                                          BluetoothProfile.HEADSET)) {
+                Log.e(TAG, "Getting Headset Proxy failed");
+-- 
+1.8.3.2
+

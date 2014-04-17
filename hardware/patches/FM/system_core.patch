@@ -1,0 +1,62 @@
+diff --git a/system/core/include/system/audio.h b/system/core/include/system/audio.h
+index 8ff0cc3..56fd0ba 100644
+--- a/system/core/include/system/audio.h
++++ b/system/core/include/system/audio.h
+@@ -422,9 +422,11 @@ enum {
+     AUDIO_DEVICE_OUT_ANC_HEADSET               = 0x10000,
+     AUDIO_DEVICE_OUT_ANC_HEADPHONE             = 0x20000,
+     AUDIO_DEVICE_OUT_PROXY                     = 0x40000,
+-#ifdef QCOM_HARDWARE
++#if defined(QCOM_HARDWARE) || defined(STE_FM)
+     AUDIO_DEVICE_OUT_FM                        = 0x80000,
+     AUDIO_DEVICE_OUT_FM_TX                     = 0x100000,
++#endif
++#ifdef QCOM_HARDWARE
+     AUDIO_DEVICE_OUT_SPDIF                     = 0x200000,
+ #endif
+     AUDIO_DEVICE_OUT_DEFAULT                   = AUDIO_DEVICE_BIT_DEFAULT,
+@@ -447,9 +447,11 @@ enum {
+                                  AUDIO_DEVICE_OUT_ANC_HEADSET |
+                                  AUDIO_DEVICE_OUT_ANC_HEADPHONE |
+                                  AUDIO_DEVICE_OUT_PROXY |
+-#ifdef QCOM_HARDWARE
++#if defined(QCOM_HARDWARE) || defined(STE_FM)
+                                  AUDIO_DEVICE_OUT_FM |
+                                  AUDIO_DEVICE_OUT_FM_TX |
++#endif
++#ifdef QCOM_HARDWARE
+                                  AUDIO_DEVICE_OUT_SPDIF |
+ #endif
+                                  AUDIO_DEVICE_OUT_DEFAULT),
+@@ -451,6 +451,10 @@ enum {
+     AUDIO_DEVICE_IN_ANC_HEADSET           = AUDIO_DEVICE_BIT_IN | 0x2000,
+     AUDIO_DEVICE_IN_PROXY                 = AUDIO_DEVICE_BIT_IN | 0x4000,
+     AUDIO_DEVICE_IN_DEFAULT               = AUDIO_DEVICE_IN_BUILTIN_MIC,
++#if defined(QCOM_HARDWARE) || defined(STE_FM)
++    AUDIO_DEVICE_IN_FM_RX                 = AUDIO_DEVICE_BIT_IN | 0x8000,
++    AUDIO_DEVICE_IN_FM_RX_A2DP            = AUDIO_DEVICE_BIT_IN | 0x10000,
++#endif
+ #else
+     AUDIO_DEVICE_IN_COMMUNICATION         = AUDIO_DEVICE_BIT_IN | 0x1,
+     AUDIO_DEVICE_IN_AMBIENT               = AUDIO_DEVICE_BIT_IN | 0x2,
+@@ -467,7 +471,7 @@ enum {
+     AUDIO_DEVICE_IN_USB_DEVICE            = AUDIO_DEVICE_BIT_IN | 0x1000,
+     AUDIO_DEVICE_IN_ANC_HEADSET           = AUDIO_DEVICE_BIT_IN | 0x2000,
+     AUDIO_DEVICE_IN_PROXY                 = AUDIO_DEVICE_BIT_IN | 0x4000,
+-#ifdef QCOM_HARDWARE
++#if defined(QCOM_HARDWARE) || defined(STE_FM)
+     AUDIO_DEVICE_IN_FM_RX                 = AUDIO_DEVICE_BIT_IN | 0x8000,
+     AUDIO_DEVICE_IN_FM_RX_A2DP            = AUDIO_DEVICE_BIT_IN | 0x10000,
+ #endif
+@@ -489,7 +489,7 @@ enum {
+                                AUDIO_DEVICE_IN_USB_DEVICE |
+                                AUDIO_DEVICE_IN_PROXY |
+                                AUDIO_DEVICE_IN_ANC_HEADSET |
+-#ifdef QCOM_HARDWARE
++#if defined(QCOM_HARDWARE) || defined(STE_FM)
+                                AUDIO_DEVICE_IN_FM_RX |
+                                AUDIO_DEVICE_IN_FM_RX_A2DP |
+ #endif
+-- 
+1.8.5.3
+

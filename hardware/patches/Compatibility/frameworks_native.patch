@@ -1,0 +1,48 @@
+diff --git a/frameworks/native/include/gui/SurfaceComposerClient.h b/frameworks/native/include/gui/SurfaceComposerClient.h
+index e982bcd..425c111 100644
+--- a/frameworks/native/include/gui/SurfaceComposerClient.h
++++ b/frameworks/native/include/gui/SurfaceComposerClient.h
+@@ -74,6 +74,12 @@ public:
+     /* triggers screen on and waits for it to complete */
+     static void unblankDisplay(const sp<IBinder>& display);
+
++#if defined(ICS_CAMERA_BLOB) || defined(MR0_CAMERA_BLOB)
++    static ssize_t getDisplayWidth(int32_t displayId);
++    static ssize_t getDisplayHeight(int32_t displayId);
++    static ssize_t getDisplayOrientation(int32_t displayId);
++#endif
++
+     // ------------------------------------------------------------------------
+     // surface creation / destruction
+
+diff --git a/frameworks/native/libs/gui/SurfaceComposerClient.cpp b/frameworks/native/libs/gui/SurfaceComposerClient.cpp
+index aafc4d2..ba0f64d 100644
+--- a/frameworks/native/libs/gui/SurfaceComposerClient.cpp
++++ b/frameworks/native/libs/gui/SurfaceComposerClient.cpp
+@@ -601,6 +601,26 @@ void SurfaceComposerClient::setDisplayProjection(const sp<IBinder>& token,
+             layerStackRect, displayRect);
+ }
+
++#if defined(ICS_CAMERA_BLOB) || defined(MR0_CAMERA_BLOB)
++ssize_t SurfaceComposerClient::getDisplayWidth(int32_t displayId) {
++    DisplayInfo info;
++    getDisplayInfo(getBuiltInDisplay(displayId), &info);
++    return info.w;
++}
++
++ssize_t SurfaceComposerClient::getDisplayHeight(int32_t displayId) {
++    DisplayInfo info;
++    getDisplayInfo(getBuiltInDisplay(displayId), &info);
++    return info.h;
++}
++
++ssize_t SurfaceComposerClient::getDisplayOrientation(int32_t displayId) {
++    DisplayInfo info;
++    getDisplayInfo(getBuiltInDisplay(displayId), &info);
++    return info.orientation;
++}
++#endif
++
+ // ----------------------------------------------------------------------------
+
+ status_t SurfaceComposerClient::getDisplayInfo(

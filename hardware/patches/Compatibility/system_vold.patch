@@ -1,0 +1,22 @@
+diff --git a/system/vold/VolumeManager.cpp b/system/vold/VolumeManager.cpp
+index 2a9cd20..11a21ce 100644
+--- a/system/vold/VolumeManager.cpp
++++ b/system/vold/VolumeManager.cpp
+@@ -1604,11 +1604,15 @@ int VolumeManager::cleanupAsec(Volume *v, bool force) {
+ int VolumeManager::mkdirs(char* path) {
+     // Require that path lives under a volume we manage
+     const char* emulated_source = getenv("EMULATED_STORAGE_SOURCE");
++    const char* external_storage = getenv("EXTERNAL_STORAGE");
+     const char* root = NULL;
++
+     if (emulated_source && !strncmp(path, emulated_source, strlen(emulated_source))) {
+         root = emulated_source;
++    } else if (external_storage && !strncmp(path, external_storage, strlen(external_storage))){
++        root = external_storage;
+     } else {
+-        Volume* vol = getVolumeForFile(path);
++       Volume* vol = getVolumeForFile(path);
+         if (vol) {
+             root = vol->getMountpoint();
+         }
+ 
