@@ -81,22 +81,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
   ste.video.decoder.max.res=720p \
   ste.video.decoder.h264.max.lev=3.2
 
-# Audio HAL
-PRODUCT_PACKAGES += \
-   libalsactrl.so \
-   libste_adm.so \
-   libstelpcutils.so \
-   audio_policy.montblanc \
-   audio.primary.montblanc
-   
-# libgralloc
-PRODUCT_PACKAGES += \
-   gralloc.montblanc
-   
-# libcopybit
-PRODUCT_PACKAGES += \
-   copybit.montblanc
-
 
 # Device specific proprieties
 # References: 
