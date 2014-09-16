@@ -1,3 +1,2 @@
-add_lunch_combo full_kumquat-eng
-add_lunch_combo full_kumquat-userdebug
-add_lunch_combo full_kumquat-user
+add_lunch_combo omni_kumquat-eng
+add_lunch_combo omni_kumquat-userdebug
