@@ -80,6 +80,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
   ste.video.decoder.max.res=720p \
   ste.video.decoder.h264.max.lev=3.2
 
+# Reduce background apps limit to 16 on low-tier devices
+PRODUCT_PROPERTY_OVERRIDES += \
+  ro.sys.fw.bg_apps_limit=16
+
+# Set max background services
+PRODUCT_PROPERTY_OVERRIDES += \
+  ro.config.max_starting_bg=8
 
 # Device specific proprieties
 # References: 
