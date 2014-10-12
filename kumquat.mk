@@ -88,6 +88,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
   ro.config.max_starting_bg=8
 
+# Use rgb565 for opengl surface handling
+PRODUCT_PROPERTY_OVERRIDES += \
+  ro.opengles.surface.rgb565=true
+
 # Device specific proprieties
 # References: 
 # - http://source.android.com/devices/tuning.html (Round to ceil)
