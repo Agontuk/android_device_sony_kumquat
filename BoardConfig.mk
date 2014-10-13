@@ -6,6 +6,10 @@
 -include device/sony/montblanc-common/BoardConfigCommon.mk
 
 
+# Low memory device
+TARGET_ARCH_LOWMEM := true
+
+
 # Platform specific headers
 TARGET_SPECIFIC_HEADER_PATH += device/sony/kumquat/include
 
