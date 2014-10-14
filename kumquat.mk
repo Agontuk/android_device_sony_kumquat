@@ -20,7 +20,7 @@ TARGET_SPECIFIC_HEADER_PATH += device/sony/kumquat/include
 
 # Device specific configuration scripts
 PRODUCT_COPY_FILES += \
-        $(LOCAL_PATH)/config/fstab.st-ericsson:root/fstab.st-ericsson \
+	$(LOCAL_PATH)/config/fstab.st-ericsson:root/fstab.st-ericsson \
 	$(LOCAL_PATH)/config/init.st-ericsson.device.rc:root/init.st-ericsson.device.rc \
 	$(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml
 
@@ -91,6 +91,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Use rgb565 for opengl surface handling
 PRODUCT_PROPERTY_OVERRIDES += \
   ro.opengles.surface.rgb565=true
+
+# Disable JIT code cache to free up some ram when the device is running
+PRODUCT_PROPERTY_OVERRIDES += \
+  dalvik.vm.jit.codecachesize=0
 
 # Device specific proprieties
 # References: 
