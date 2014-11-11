@@ -22,7 +22,7 @@ $(call inherit-product, device/sony/kumquat/full_kumquat.mk)
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Device specific display resolutions
-PRODUCT_AAPT_CONFIG := normal hdpi
+PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 # Build fingerprints
