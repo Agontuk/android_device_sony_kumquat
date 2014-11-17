@@ -14,10 +14,6 @@ $(call inherit-product-if-exists, vendor/sony/kumquat/kumquat-vendor.mk)
 DEVICE_PACKAGE_OVERLAYS += device/sony/kumquat/overlay
 
 
-# Device specific headers
-TARGET_SPECIFIC_HEADER_PATH += device/sony/kumquat/include
-
-
 # Device specific configuration scripts
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/config/fstab.st-ericsson:root/fstab.st-ericsson \
