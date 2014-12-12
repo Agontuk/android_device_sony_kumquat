@@ -2,8 +2,8 @@
 #
 # defines for values are in frameworks/base/include/ui/KeycodeLabels.h
 
-key 115   VOLUME_UP         WAKE
-key 114   VOLUME_DOWN       WAKE
+key 115   VOLUME_UP
+key 114   VOLUME_DOWN
 
 # CAMERA Related Key
 key 212   CAMERA
