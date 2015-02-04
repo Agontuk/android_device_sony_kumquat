@@ -17,7 +17,7 @@ trig r $g 10 80 160 255
 busybox sleep 0.8
 
 # trigger vibration
-echo 200 > /sys/class/timed_output/vibrator/enable
+echo 50 > /sys/class/timed_output/vibrator/enable
 
 # turn off LED bar
 t=0
