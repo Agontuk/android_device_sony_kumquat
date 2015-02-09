@@ -21,6 +21,10 @@ $(call inherit-product, device/sony/kumquat/full_kumquat.mk)
 # Inherit CM common Phone stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
+# Device specific display resolutions
+PRODUCT_AAPT_CONFIG := normal hdpi
+PRODUCT_AAPT_PREF_CONFIG := hdpi
+
 # Build fingerprints
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME=ST25i_1262-1172 \

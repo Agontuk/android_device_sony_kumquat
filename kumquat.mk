@@ -54,13 +54,6 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/config/ux500-ske-keypad.kl:system/usr/keylayout/ux500-ske-keypad.kl \
 	$(LOCAL_PATH)/config/ux500-ske-keypad-qwertz.kl:system/usr/keylayout/ux500-ske-keypad-qwertz.kl
 
-	
-# Device specific display resolutions
-# Reference: http://developer.android.com/guide/practices/screens_support.html
-# Note: In PRODUCT_AAPT_PREF_CONFIG set the proper one (e.g. hdpi), in PRODUCT_AAPT_CONFIG set the proper one and the previous one (e.g. mdpi)
-PRODUCT_AAPT_PREF_CONFIG := hdpi
-PRODUCT_AAPT_CONFIG := mdpi hdpi
-
 
 # Android kind of memory
 PRODUCT_PROPERTY_OVERRIDES += ro.build.characteristics=nosdcard
