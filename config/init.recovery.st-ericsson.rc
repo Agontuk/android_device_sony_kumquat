@@ -1,0 +1,19 @@
+on early-boot
+    write /sys/class/android_usb/android0/idVendor 0fce
+    write /sys/class/android_usb/android0/idProduct 5171
+
+on property:sys.storage.ums_enabled=1
+    write /sys/class/android_usb/android0/idVendor 0fce
+    write /sys/class/android_usb/android0/idProduct 6171
+
+on property:sys.usb.config=mtp,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0fce
+    write /sys/class/android_usb/android0/idProduct 5171
+    write /sys/class/android_usb/android0/enable 1
+
+on property:sys.usb.config=adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0fce
+    write /sys/class/android_usb/android0/idProduct 6171
+    write /sys/class/android_usb/android0/enable 1
