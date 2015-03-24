@@ -1,33 +1,28 @@
 # Inherit from AOSP
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
-
 # Inherit from the common montblanc definitions
 $(call inherit-product, device/sony/montblanc-common/montblanc.mk)
-
 
 # Inherit from the device specific vendor definitions
 $(call inherit-product-if-exists, vendor/sony/kumquat/kumquat-vendor.mk)
 
-
 # Device specific settings overlays
 DEVICE_PACKAGE_OVERLAYS += device/sony/kumquat/overlay
 
-
-# Device specific configuration scripts
+# Device specific init scripts
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/config/fstab.st-ericsson:root/fstab.st-ericsson \
 	$(LOCAL_PATH)/config/init.st-ericsson.device.rc:root/init.st-ericsson.device.rc \
-	$(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml
-
+	$(LOCAL_PATH)/config/init.st-ericsson.usb.rc:root/init.st-ericsson.usb.rc
 
 # Device specific hardware configuration scripts
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/config/dash.conf:system/etc/dash.conf \
 	$(LOCAL_PATH)/prebuilt/hw_config.sh:system/etc/hw_config.sh \
 	$(LOCAL_PATH)/config/cflashlib.cfg:system/etc/cflashlib.cfg \
-	$(LOCAL_PATH)/config/flashled_param_config.cfg:system/etc/flashled_param_config.cfg
-
+	$(LOCAL_PATH)/config/flashled_param_config.cfg:system/etc/flashled_param_config.cfg \
+	$(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml
 
 # Device specific bootlogo and charging animation
 PRODUCT_COPY_FILES += \
@@ -38,10 +33,6 @@ $(call inherit-product, $(LOCAL_PATH)/prebuilt/resources-480x854.mk)
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/config/twrp.fstab:recovery/root/etc/twrp.fstab \
 	$(LOCAL_PATH)/config/init.recovery.st-ericsson.rc:root/init.recovery.st-ericsson.rc
-
-# Device specific USB configuration script
-PRODUCT_COPY_FILES += $(LOCAL_PATH)/config/init.st-ericsson.usb.rc:root/init.st-ericsson.usb.rc
-
 
 # Device specific keylayouts and touchscreen configurations files
 PRODUCT_COPY_FILES += \
@@ -55,50 +46,35 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/config/ux500-ske-keypad.kl:system/usr/keylayout/ux500-ske-keypad.kl \
 	$(LOCAL_PATH)/config/ux500-ske-keypad-qwertz.kl:system/usr/keylayout/ux500-ske-keypad-qwertz.kl
 
-
 # Android kind of memory
 PRODUCT_CHARACTERISTICS := nosdcard
-
 
 # PC Companion kind of memory
 PRODUCT_PROPERTY_OVERRIDES += ro.semc.product.user_storage=emmc_only
 
-
 # Hardware video codecs configurations
 PRODUCT_PROPERTY_OVERRIDES += \
-  ste.video.dec.mpeg4.in.size=8192 \
-  ste.video.enc.out.buffercnt=5 \
-  ste.video.dec.recycle.delay=1 \
-  ste.video.decoder.max.hwmem=0x2600000 \
-  ste.video.decoder.max.res=720p \
-  ste.video.decoder.h264.max.lev=3.2
+	ste.video.dec.mpeg4.in.size=8192 \
+	ste.video.enc.out.buffercnt=5 \
+	ste.video.dec.recycle.delay=1 \
+	ste.video.decoder.max.hwmem=0x2600000 \
+	ste.video.decoder.max.res=720p \
+	ste.video.decoder.h264.max.lev=3.2
 
-# Reduce background apps limit to 16 on low-tier devices
+# Device density
 PRODUCT_PROPERTY_OVERRIDES += \
-  ro.sys.fw.bg_apps_limit=16
+	ro.sf.lcd_density=240
 
-# Set max background services
+# Low-RAM optimizations
 PRODUCT_PROPERTY_OVERRIDES += \
-  ro.config.max_starting_bg=8
+	ro.config.low_ram=true \
+	dalvik.vm.jit.codecachesize=0 \
+	ro.config.max_starting_bg=8 \
+	ro.sys.fw.bg_apps_limit=16 \
+	config.disable_atlas=true
 
-# Disable JIT code cache to free up some ram when the device is running
+# HWUI properties
 PRODUCT_PROPERTY_OVERRIDES += \
-  dalvik.vm.jit.codecachesize=0
-
-# Disable atlas service on low-ram devices
-PRODUCT_PROPERTY_OVERRIDES += \
-  config.disable_atlas=true
-
-# Device specific proprieties
-# References: 
-# - http://source.android.com/devices/tuning.html (Round to ceil)
-# - http://en.wikipedia.org/wiki/Pixel_density#Calculation_of_monitor_PPI
-# - https://source.android.com/devices/low-ram.html
-PRODUCT_PROPERTY_OVERRIDES += \
-  ro.hwui.texture_cache_size=9 \
-  ro.hwui.layer_cache_size=7 \
-  ro.hwui.path_cache_size=2 \
-  ro.sf.lcd_density=240 \
-  ro.config.low_ram=true
-
-
+	ro.hwui.texture_cache_size=9 \
+	ro.hwui.layer_cache_size=7 \
+	ro.hwui.path_cache_size=2
