@@ -73,8 +73,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.sys.fw.bg_apps_limit=16 \
 	config.disable_atlas=true
 
-# HWUI properties
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.hwui.texture_cache_size=9 \
-	ro.hwui.layer_cache_size=7 \
-	ro.hwui.path_cache_size=2
