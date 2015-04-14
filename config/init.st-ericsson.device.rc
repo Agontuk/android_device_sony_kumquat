@@ -24,3 +24,7 @@ on boot
 service illumination /system/bin/illumination_service
     class main
     user root
+
+# Fix illumination file permission
+on property:sys.boot_completed=1
+    chmod 622 /data/lightservice.soc
