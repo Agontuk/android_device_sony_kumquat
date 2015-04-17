@@ -54,9 +54,6 @@ PRODUCT_PROPERTY_OVERRIDES += ro.semc.product.user_storage=emmc_only
 
 # Hardware video codecs configurations
 PRODUCT_PROPERTY_OVERRIDES += \
-	ste.video.dec.mpeg4.in.size=8192 \
-	ste.video.enc.out.buffercnt=5 \
-	ste.video.dec.recycle.delay=1 \
 	ste.video.decoder.max.hwmem=0x2600000 \
 	ste.video.decoder.max.res=720p \
 	ste.video.decoder.h264.max.lev=3.2
