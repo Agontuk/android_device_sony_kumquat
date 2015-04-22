@@ -30,3 +30,7 @@ TARGET_USES_ILLUMINAION_BAR := true
 
 # Device identifiers for updates
 TARGET_OTA_ASSERT_DEVICE := ST25i,ST25a,kumquat
+
+# SELinux
+BOARD_SEPOLICY_DIRS += device/sony/kumquat/sepolicy
+BOARD_SEPOLICY_UNION += light.te
