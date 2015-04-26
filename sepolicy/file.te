@@ -1,0 +1,2 @@
+# illumination service
+type light_data_file, file_type, data_file_type;

@@ -1,0 +1,11 @@
+# illumination service
+type light, domain;
+type light_exec, exec_type, file_type;
+init_daemon_domain(light)
+
+allow light self:capability dac_override;
+allow light self:process execmem;
+allow light sysfs:file w_file_perms;
+allow light sysfs_wake_lock:file w_file_perms;
+file_type_auto_trans(light, system_data_file, light_data_file)
+allow { system_app system_server untrusted_app } light_data_file:fifo_file w_file_perms;

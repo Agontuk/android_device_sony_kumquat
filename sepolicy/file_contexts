@@ -1,0 +1,2 @@
+/system/bin/illumination_service	u:object_r:light_exec:s0 
+/data/light.*	u:object_r:light_data_file:s0
