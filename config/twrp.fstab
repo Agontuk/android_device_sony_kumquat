@@ -1,7 +1,7 @@
 # mount point   fstype  device                            flags
 /boot           emmc    /dev/block/mmcblk0p9
 /system         ext4    /dev/block/mmcblk0p10
-/data           ext4    /dev/block/mmcblk0p11
-/cache          ext4    /dev/block/mmcblk0p12
+/data           auto    /dev/block/mmcblk0p11
+/cache          auto    /dev/block/mmcblk0p12
 /sdcard         vfat    /dev/block/mmcblk0p14             flags=display="Internal Storage";storage;wipeingui
 /usb-otg        vfat    /dev/block/sda1  /dev/block/sda   flags=display="USB-OTG";storage;wipeingui;removable
