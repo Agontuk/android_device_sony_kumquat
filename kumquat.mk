@@ -46,6 +46,10 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/config/ux500-ske-keypad.kl:system/usr/keylayout/ux500-ske-keypad.kl \
 	$(LOCAL_PATH)/config/ux500-ske-keypad-qwertz.kl:system/usr/keylayout/ux500-ske-keypad-qwertz.kl
 
+# Device specific display resolutions
+PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_PREF_CONFIG := hdpi
+
 # Android kind of memory
 PRODUCT_CHARACTERISTICS := nosdcard
 
