@@ -17,6 +17,9 @@
 # Boot Animation
 TARGET_BOOTANIMATION_SIZE := 480x320
 
+# Exclude live wallpapers
+TARGET_EXCLUDE_LIVEWALLPAPERS := true
+
 # Inherit Omni GSM telephony parts
 $(call inherit-product, vendor/omni/config/gsm.mk)
 
