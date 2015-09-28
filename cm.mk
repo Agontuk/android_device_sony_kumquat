@@ -15,6 +15,7 @@
 # Boot Animation
 TARGET_SCREEN_HEIGHT := 854
 TARGET_SCREEN_WIDTH := 480
+TARGET_BOOTANIMATION_HALF_RES := true
 
 $(call inherit-product, device/sony/kumquat/full_kumquat.mk)
 
