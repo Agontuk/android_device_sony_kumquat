@@ -25,6 +25,7 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 # Device specific display resolutions
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := hdpi
+PRODUCT_AAPT_PREBUILT_DPI := hdpi
 
 # Build fingerprints
 PRODUCT_BUILD_PROP_OVERRIDES += \
