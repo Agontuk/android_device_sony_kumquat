@@ -24,8 +24,8 @@ TARGET_RECOVERY_FSTAB := device/sony/kumquat/config/fstab.st-ericsson
 
 
 # Specific flag for LED bar notification
-TARGET_USES_ILLUMINAION_BAR := true
-#COMMON_GLOBAL_CFLAGS += -DNEW_NOTIFICATION -DSECOND_NOTIFICATION
+#TARGET_USES_ILLUMINAION_BAR := true
+COMMON_GLOBAL_CFLAGS += -DNEW_NOTIFICATION -DSECOND_NOTIFICATION
 
 
 # Device identifiers for updates
@@ -43,4 +43,4 @@ SOMC_CFG_SENSORS_PROXIMITY_APDS9702 := yes
 
 
 # SELinux
-BOARD_SEPOLICY_DIRS += device/sony/kumquat/sepolicy
+#BOARD_SEPOLICY_DIRS += device/sony/kumquat/sepolicy
