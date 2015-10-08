@@ -44,4 +44,3 @@ SOMC_CFG_SENSORS_PROXIMITY_APDS9702 := yes
 
 # SELinux
 BOARD_SEPOLICY_DIRS += device/sony/kumquat/sepolicy
-BOARD_SEPOLICY_UNION += light.te
